@@ -55,12 +55,12 @@ public class Singup extends Fragment {
                 LayoutInflater layoutInflater = getLayoutInflater();
                 View view = layoutInflater.inflate(R.layout.custom_taonv, null);
                 builder.setView(view);
-                dao = new NVDao(getActivity());
+                dao = new NVDao(getActivity());//tạo nhan vien DAO
                 edUser = view.findViewById(R.id.edUser);
                 edhoten = view.findViewById(R.id.edHoTen);
                 edPass = view.findViewById(R.id.edPass);
                 edEnPass = view.findViewById(R.id.edRePass);
-                builder.setTitle("                Tạo Tài Khoản");
+                builder.setTitle("Tạo Tài Khoản");
                 builder.setPositiveButton("Tạo", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

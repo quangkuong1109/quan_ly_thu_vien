@@ -49,23 +49,15 @@ public class MainActivity extends AppCompatActivity {
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-//        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-//            @Override
-//            public void onDestinationChanged(@NonNull @NotNull NavController controller, @NonNull @NotNull NavDestination destination, @Nullable @org.jetbrains.annotations.Nullable Bundle arguments) {
-//                if (destination.getID() == R.id.nav_exit) {
-//                    startActivity(intent = new Intent(getApplicationContext(), Login.class));
-//                }
-//            }
-//        });
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         mHeaderview = navigationView.getHeaderView(0);
         tv_user = mHeaderview.findViewById(R.id.tv_user);
         img_user = mHeaderview.findViewById(R.id.img_user);
         Intent intent = getIntent();
-        String user = intent.getStringExtra("admintion");
-        tv_user.setText("Welcome " + user + "!");
-        if (user.equals("admin")) {
+        String user = intent.getStringExtra("admintion");// lay du lieu intent
+        tv_user.setText("Xin chào " + user + "!");
+        if (user.equals("admin")) {//nếu đúng là admin thì hiển thị chức năng thêm nhân viên
             img_user.setImageResource(R.drawable.ic_administrator);
             navigationView.getMenu().findItem(R.id.nav_admin).setVisible(true);
         } else {
@@ -92,14 +84,14 @@ public class MainActivity extends AppCompatActivity {
         builder.setIcon(R.drawable.ic_baseline_cancel_24);
         builder.setTitle("Đăng xuất");
         builder.setMessage("Bạn có muốn đăng xuất không?");
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
             }
         });
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {// không thay đổi gif
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }

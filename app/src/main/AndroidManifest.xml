@@ -9,12 +9,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Huynhddph12966_MOB2041_DuAnMauAndroid">
         <activity android:name="com.example.Quanly_thuvien.ManhinhHome">
-
         </activity>
         <activity android:name="com.example.Quanly_thuvien.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

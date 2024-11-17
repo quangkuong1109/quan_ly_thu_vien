@@ -119,7 +119,7 @@ public class S_Adapter extends RecyclerView.Adapter<S_Adapter.SachHoder> impleme
         holder.img_edits.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LayoutInflater inflater = LayoutInflater.from(context);
+                LayoutInflater inflater = LayoutInflater.from(context);//tạo cacs đối tượng view
                 View view = inflater.inflate(R.layout.custom_edit_sach, null);
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setView(view);
@@ -198,7 +198,7 @@ public class S_Adapter extends RecyclerView.Adapter<S_Adapter.SachHoder> impleme
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount() {//trả về so luong trong list
         if (list != null) {
             return list.size();
         }

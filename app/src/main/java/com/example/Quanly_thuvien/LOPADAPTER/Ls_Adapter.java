@@ -53,23 +53,11 @@ public class Ls_Adapter extends RecyclerView.Adapter<Ls_Adapter.LoaiSachhoder> {
         if (loaiSach == null) {
             return;
         } else {
-            holderls.tv_IDls.setText("Mã Loại Sách: " + loaiSach.getMaLS() + "");
+            holderls.tv_IDls.setText("Mã Loại Sách: " + loaiSach.getMaLS());
             holderls.tv_tenls.setText("Tên Loại Sách: " + loaiSach.getTenLS());
             holderls.tv_nhacc.setText("Nhà Cung Cấp: " + loaiSach.getNhacc());
         }
-        if (holderls.tv_tenls.getText().toString().contains("N")) {
-            holderls.tv_IDls.setTextColor(Color.GREEN);
-            holderls.tv_tenls.setTextColor(Color.GREEN);
-            holderls.tv_nhacc.setTextColor(Color.GREEN);
-        } else if (holderls.tv_tenls.getText().toString().contains("A")) {
-            holderls.tv_IDls.setTextColor(Color.RED);
-            holderls.tv_tenls.setTextColor(Color.RED);
-            holderls.tv_nhacc.setTextColor(Color.RED);
-        } else {
-            holderls.tv_IDls.setTextColor(Color.BLACK);
-            holderls.tv_tenls.setTextColor(Color.BLACK);
-            holderls.tv_nhacc.setTextColor(Color.BLACK);
-        }
+
         holderls.imgdel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

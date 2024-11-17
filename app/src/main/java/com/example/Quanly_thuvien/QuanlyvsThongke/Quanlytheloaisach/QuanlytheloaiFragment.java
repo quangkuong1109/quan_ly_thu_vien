@@ -32,7 +32,7 @@ public class QuanlytheloaiFragment extends Fragment {
     RecyclerView rcl_ls;
     EditText ed_tenls;
     LoaiSachDao lsdao;
-    Ls_Adapter adapter;
+    Ls_Adapter adapter_ls;
     FloatingActionButton flb_addls;
     LoaiSachViewModel model;
     SearchView searchView;
@@ -51,11 +51,11 @@ public class QuanlytheloaiFragment extends Fragment {
         RecyclerView.LayoutManager lymanage = new LinearLayoutManager(getActivity());
         rcl_ls.setLayoutManager(lymanage);
         model = new ViewModelProvider(this).get(LoaiSachViewModel.class);
-        model.getLiveData().observe(getViewLifecycleOwner(), new Observer<List<LoaiSach>>() {
+        model.getLiveData().observe(getViewLifecycleOwner(), new Observer<List<LoaiSach>>() {//hiển thị dữ liệu
             @Override
             public void onChanged(List<LoaiSach> loaiSaches) {
-                adapter = new Ls_Adapter(getActivity(), loaiSaches, lsdao);
-                rcl_ls.setAdapter(adapter);
+                adapter_ls = new Ls_Adapter(getActivity(), loaiSaches, lsdao);
+                rcl_ls.setAdapter(adapter_ls);
             }
         });
         flb_addls.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +67,7 @@ public class QuanlytheloaiFragment extends Fragment {
                 builder.setView(view1);
                 EditText ed_ls = (EditText) view1.findViewById(R.id.ed_editls);
                 EditText ed_nhcc = (EditText) view1.findViewById(R.id.ed_nhcc);
-                builder.setTitle("                Thêm Loại Sách");
+                builder.setTitle("Thêm Loại Sách");
                 builder.setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -80,7 +80,7 @@ public class QuanlytheloaiFragment extends Fragment {
                             ed_nhcc.setText("");
                             Toast.makeText(getActivity(), "Thêm Loại Sách Thành Công", Toast.LENGTH_SHORT).show();
                             model.getLiveData();
-                            adapter.notifyDataSetChanged();
+                            adapter_ls.notifyDataSetChanged();
                         } else {
                             Toast.makeText(getActivity(), "Tên Loại Sách Trùng Lặp \n Thêm Thất Bại", Toast.LENGTH_SHORT).show();
                         }

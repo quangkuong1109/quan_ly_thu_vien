@@ -48,6 +48,19 @@ public class SachDao {
         return list;
     }
 
+    public boolean KiemTraTonTai(String tenSach, int maLoaiSach) {
+        String sql = "SELECT COUNT(*) FROM Sach WHERE tens = ? AND mals = ?";
+        Cursor cursor = sqLiteDatabase.rawQuery(sql, new String[]{tenSach, String.valueOf(maLoaiSach)});
+        boolean tontai = false;
+        if (cursor.moveToFirst()) {
+            tontai = cursor.getInt(0) > 0; // Nếu có ít nhất một kết quả, sách đã tồn tại
+        }
+        cursor.close(); // Đảm bảo đóng Cursor sau khi sử dụng
+        return tontai;
+    }
+
+
+
     public Sach getId(String id) {
         String sql = "SELECT * FROM Sach WHERE maSach=?";
         List<Sach> list = getdata(sql, id);

@@ -34,13 +34,4 @@ public class SachViewModel extends AndroidViewModel {
         list = dao.GETS();
         liveData.setValue(list);
     }
-
-//    public long addSach(Sach sach) {
-//        long kq = dao.ADDS(sach);
-//        if (kq > 0) {
-//            loads();
-//            return kq;
-//        }
-//        return -1;
-//    }
 }

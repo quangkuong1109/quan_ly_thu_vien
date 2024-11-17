@@ -81,7 +81,7 @@ public class DoiPass extends Fragment {
             String passent = ed_passen.getText().toString();
             if (!passold.equals(ed_passold.getText().toString())) {
                 Toast.makeText(getActivity(), "Sai mật khẩu cũ", Toast.LENGTH_SHORT).show();
-                return check = -1;
+                check = -1;
             }
             if (!passnew.equals(passent)) {
                 Toast.makeText(getActivity(), "Nhập lại mật khẩu không giống", Toast.LENGTH_SHORT).show();

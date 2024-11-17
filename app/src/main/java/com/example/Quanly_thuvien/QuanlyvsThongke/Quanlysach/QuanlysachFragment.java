@@ -48,8 +48,7 @@ public class QuanlysachFragment extends Fragment {
     S_Adapter adapter;
     SearchView searchView;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_sach, null);
     }
 
@@ -64,7 +63,7 @@ public class QuanlysachFragment extends Fragment {
         model = new ViewModelProvider(this).get(SachViewModel.class);
         model.getLiveData().observe(getViewLifecycleOwner(), new Observer<List<Sach>>() {
             @Override
-            public void onChanged(List<Sach> saches) {
+            public void onChanged(List<Sach> saches) {//hiển thị dữ liệu lên fragment
                 adapter = new S_Adapter(getActivity(), saches, dao);
                 rcl_sach.setAdapter(adapter);
 //                rcl_sach.setItemAnimator(new ScaleInAnimator());
@@ -99,7 +98,7 @@ public class QuanlysachFragment extends Fragment {
                 Spinner spns = (Spinner) view.findViewById(R.id.spin_lsach);
                 EditText ed_gias = (EditText) view.findViewById(R.id.giasach);
                 EditText ed_tacgia = (EditText) view.findViewById(R.id.ed_tacgia);
-                builder.setTitle("                Thêm Sách");
+                builder.setTitle("Thêm Sách");
                 loaiSaches = new ArrayList<>();
                 loaiSachDao = new LoaiSachDao(getContext());
                 loaiSaches = (ArrayList<LoaiSach>) loaiSachDao.GETLS();
@@ -138,7 +137,7 @@ public class QuanlysachFragment extends Fragment {
                                     ed_tacgia.setText("");
                                     spns.setSelection(0);
                                     model.getLiveData();
-                                    adapter.notifyDataSetChanged();
+                                    adapter.notifyDataSetChanged();//cập nhật lại adapter để hiển thị
                                 } else {
                                     Toast.makeText(getContext(), "Thêm sách thất bại", Toast.LENGTH_SHORT).show();
                                 }
