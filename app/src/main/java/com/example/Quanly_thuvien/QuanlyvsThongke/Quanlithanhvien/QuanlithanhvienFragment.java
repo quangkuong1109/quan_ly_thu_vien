@@ -61,7 +61,7 @@ public class QuanlithanhvienFragment extends Fragment {
         model = new ViewModelProvider(this).get(ThanhvienViewModel.class);
         model.getLiveData().observe(getViewLifecycleOwner(), new Observer<List<ThanhVien>>() {
             @Override
-            public void onChanged(List<ThanhVien> thanhViens) {
+            public void onChanged(List<ThanhVien> thanhViens) {//hien thi du lieu
                 adapter = new TV_Adapter(getContext(), thanhViens);
                 rcl_tv.setAdapter(adapter);
             }
@@ -83,8 +83,8 @@ public class QuanlithanhvienFragment extends Fragment {
                     public void onClick(View v) {
                         if (ed_hoten.getText().length() == 0 || ed_namsinh.getText().length() == 0) {
                             Toast.makeText(getActivity(), "Không được để trống", Toast.LENGTH_SHORT).show();
-                        } else if (ed_hoten.getText().toString().length() < 5 || ed_hoten.getText().toString().length() > 15) {
-                            Toast.makeText(getActivity(), "Độ dài kí tự từ 5-15", Toast.LENGTH_SHORT).show();
+                        } else if (ed_hoten.getText().toString().length() < 2 || ed_hoten.getText().toString().length() > 30) {
+                            Toast.makeText(getActivity(), "Độ dài kí tự từ 2-30", Toast.LENGTH_SHORT).show();
                         } else if (!ed_hoten.getText().toString().substring(0, 1).toUpperCase().equals(ed_hoten.getText().toString().substring(0, 1))) {
                             Toast.makeText(getActivity(), "Chữ cái đầu viết hoa", Toast.LENGTH_SHORT).show();
                         } else {
