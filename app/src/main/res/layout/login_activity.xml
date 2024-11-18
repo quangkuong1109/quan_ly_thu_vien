@@ -83,7 +83,7 @@
             android:fontFamily="monospace"
             android:text="Đăng nhập"
             android:textColor="@color/white"
-            android:backgroundTint="@color/teal_700"
+            android:backgroundTint="@color/blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_clear"
             app:layout_constraintStart_toStartOf="parent"

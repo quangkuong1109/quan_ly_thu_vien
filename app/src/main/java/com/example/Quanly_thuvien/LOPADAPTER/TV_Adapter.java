@@ -157,6 +157,8 @@ public class TV_Adapter extends RecyclerView.Adapter<TV_Adapter.tvhoder> impleme
         });
     }
 
+
+
     @Override
     public int getItemCount() {
         if (list != null) {

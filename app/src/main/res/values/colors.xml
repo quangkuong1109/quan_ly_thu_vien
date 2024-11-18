@@ -17,4 +17,14 @@
     <color name="dark_blue">#004699</color>
     <color name="green">#4CAF50</color>
     <color name="dark_green">#39853C</color>
+
+    <color name="purple_1">#624E88</color>
+    <color name="purple_2">#8967B3</color>
+    <color name="pinkpurple">#CB80AB</color>
+    <color name="beige">#E6D9A2</color>
+
+    <color name="orange_1">#FF885B</color>
+    <color name="orange_2">#EC8F5E</color>
+    <color name="beige_2">#EFBC9B</color>
+    <color name="gray_matte">#6C5F5B</color>
 </resources>
