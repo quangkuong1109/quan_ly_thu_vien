@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,9 +63,9 @@ public class Ls_Adapter extends RecyclerView.Adapter<Ls_Adapter.LoaiSachhoder> {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("Delete");
-                builder.setIcon(R.drawable.ic_dele);
-                builder.setMessage("Bạn có muốn xóa không?");
+                builder.setTitle("Xóa loại sách");
+                builder.setIcon(R.drawable.ic_baseline_delete_forever_24_red);
+                builder.setMessage("Bạn có chắc chắn muốn xóa không ?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
@@ -72,6 +73,16 @@ public class Ls_Adapter extends RecyclerView.Adapter<Ls_Adapter.LoaiSachhoder> {
                         loDao = new LoaiSachDao(context);
                         long kq = loDao.DELETELS(loaiSach);
                         if (kq > 0) {
+                            // Sử dụng context chính xác
+                            MediaPlayer mp = MediaPlayer.create(context.getApplicationContext(), R.raw.bubbles_bursting);
+                            mp.start();
+                            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                @Override
+                                public void onCompletion(MediaPlayer mp) {
+                                    // Giải phóng MediaPlayer sau khi hoàn thành phát
+                                    mp.release();
+                                }
+                            });
                             sachList.clear();
                             sachList.addAll(loDao.GETLS());
                             // load dữ liệu
@@ -100,7 +111,8 @@ public class Ls_Adapter extends RecyclerView.Adapter<Ls_Adapter.LoaiSachhoder> {
                 View view = layoutInflater.inflate(R.layout.custom_edit_loaisach, null);
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setView(view);
-                builder.setTitle("                Sửa Loại Sách");
+                builder.setIcon(R.drawable.ic_baseline_edit_24);
+                builder.setTitle("Sửa Loại Sách");
                 EditText ed_loasc = (EditText) view.findViewById(R.id.ed_editls);
                 EditText ed_ncc = (EditText) view.findViewById(R.id.edit_ncc);
                 ed_loasc.setText(loaiSach.getTenLS());
@@ -118,6 +130,16 @@ public class Ls_Adapter extends RecyclerView.Adapter<Ls_Adapter.LoaiSachhoder> {
                             loaiSach.setNhacc(ed_ncc.getText().toString());
                             long kq = loDao.UPDATELS(loaiSach);
                             if (kq > 0) {
+                                // Sử dụng context chính xác
+                                MediaPlayer mp = MediaPlayer.create(context.getApplicationContext(), R.raw.new_notification);
+                                mp.start();
+                                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                    @Override
+                                    public void onCompletion(MediaPlayer mp) {
+                                        // Giải phóng MediaPlayer sau khi hoàn thành phát
+                                        mp.release();
+                                    }
+                                });
                                 sachList.clear();
                                 sachList.addAll(loDao.GETLS());
                                 notifyDataSetChanged();

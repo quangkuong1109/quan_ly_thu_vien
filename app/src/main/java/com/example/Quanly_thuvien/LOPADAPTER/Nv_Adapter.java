@@ -3,6 +3,7 @@ package com.example.Quanly_thuvien.LOPADAPTER;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -62,8 +63,8 @@ public class Nv_Adapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("Delete");
-                builder.setIcon(R.drawable.ic_dele);
+                builder.setTitle("Xóa nhân viên");
+                builder.setIcon(R.drawable.ic_baseline_delete_forever_24_red);
                 builder.setMessage("Bạn có muốn xóa không?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
@@ -73,6 +74,16 @@ public class Nv_Adapter extends BaseAdapter {
                         nvdao.OPEN();
                         int kq = nvdao.DELETE(nhanVien.getMaNV());
                         if (kq > 0) {
+                            // Sử dụng context chính xác
+                            MediaPlayer mp = MediaPlayer.create(context.getApplicationContext(), R.raw.bubbles_bursting);
+                            mp.start();
+                            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                @Override
+                                public void onCompletion(MediaPlayer mp) {
+                                    // Giải phóng MediaPlayer sau khi hoàn thành phát
+                                    mp.release();
+                                }
+                            });
                             list.clear();
                             list.addAll(nvdao.GETNV());
                             notifyDataSetChanged();
@@ -96,4 +107,6 @@ public class Nv_Adapter extends BaseAdapter {
 
         return view;
     }
+
+
 }

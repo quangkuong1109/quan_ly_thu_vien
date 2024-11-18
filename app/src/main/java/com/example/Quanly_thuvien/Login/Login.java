@@ -2,6 +2,7 @@ package com.example.Quanly_thuvien.Login;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -66,6 +67,16 @@ public class Login extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Tên đăng nhập không được bỏ trống", Toast.LENGTH_SHORT).show();
         } else {//nếu có tài khoản mật khẩu thỏa mãn hoặc so sánh tài khoản mật khẩu với admin
             if (nvdao.getlogin(usered, passed) > 0 || (usered.equalsIgnoreCase("admin") && passed.equalsIgnoreCase("admin"))) {
+                // Sử dụng context chính xác
+                MediaPlayer mp = MediaPlayer.create(Login.this, R.raw.new_notification);
+                mp.start();
+                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        // Giải phóng MediaPlayer sau khi hoàn thành phát
+                        mp.release();
+                    }
+                });
                 Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                 rememberUser(usered, passed, chk_remember.isChecked());
                 startActivity(intent = new Intent(Login.this, MainActivity.class).putExtra("admintion", usered));

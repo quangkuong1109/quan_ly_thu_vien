@@ -3,20 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/activity_manhinh_home.xml" value="0.19746376811594202" />
         <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/custom_addthanhvien.xml" value="0.2" />
-        <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/custom_list_thanhvien.xml" value="0.2" />
+        <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/custom_list_phieumuon.xml" value="0.22" />
+        <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/custom_list_thanhvien.xml" value="0.3333333333333333" />
         <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/custom_list_tk.xml" value="0.2" />
         <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/custom_spiner_thanhvien.xml" value="0.2" />
         <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/custom_update_tv.xml" value="0.2" />
         <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/doipass_fragment.xml" value="0.2" />
         <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/frag_loaisach.xml" value="0.2" />
         <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/fragment_phieumuon.xml" value="0.2" />
-        <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/fragment_quanlythanhvien.xml" value="0.10507246376811594" />
+        <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/fragment_quanlythanhvien.xml" value="0.3333333333333333" />
         <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/fragment_sach.xml" value="0.2" />
         <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/fragment_thongkedoanhthu.xml" value="0.2" />
         <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/fragment_thongketo10.xml" value="0.2" />
         <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/login_activity.xml" value="0.2" />
         <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/layout/singup_activity.xml" value="0.2" />
+        <entry key="..\:/APP_QLTV/quan_ly_thu_vien/app/src/main/res/menu/context_menu_taikhoan.xml" value="0.19895833333333332" />
         <entry key="..\:/Users/Administrator/Downloads/MOB2041_DuAnMauAndroid/MOB2041_DuAnMauAndroid/MOB2041_DuAnMauAndroid/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1745" />
         <entry key="..\:/Users/Administrator/Downloads/MOB2041_DuAnMauAndroid/MOB2041_DuAnMauAndroid/MOB2041_DuAnMauAndroid/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.139" />
         <entry key="..\:/Users/Administrator/Downloads/MOB2041_DuAnMauAndroid/MOB2041_DuAnMauAndroid/MOB2041_DuAnMauAndroid/app/src/main/res/drawable/ic_money.xml" value="0.139" />

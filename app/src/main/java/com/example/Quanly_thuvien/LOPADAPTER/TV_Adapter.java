@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,18 @@ public class TV_Adapter extends RecyclerView.Adapter<TV_Adapter.tvhoder> impleme
         ThanhVien thanhVien = list.get(position);
         if (thanhVien == null) {
             return;
+        }
+        if (thanhVien.getHoTenTV().startsWith("Không tìm thấy kết quả")) {
+            holder.tv_maTV.setText("");
+            holder.tv_namsinh.setText("");
+            holder.tv_hoten.setText(thanhVien.getHoTenTV());
+
+            //Ẩn các biểu tượng
+            holder.img_dele.setVisibility(View.GONE);
+            holder.img_edi.setVisibility(View.GONE);
         } else {
+            holder.img_dele.setVisibility(View.VISIBLE);
+            holder.img_edi.setVisibility(View.VISIBLE);
             //holder.tv_vtri.setText("Vị Trí: " + (position + 1));
             holder.tv_maTV.setText("Mã TV: " + thanhVien.getIDTV() + "");
             holder.tv_hoten.setText("Họ Và Tên: " + thanhVien.getHoTenTV());
@@ -77,9 +89,9 @@ public class TV_Adapter extends RecyclerView.Adapter<TV_Adapter.tvhoder> impleme
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("Delete");
-                builder.setIcon(R.drawable.ic_dele);
-                builder.setMessage("Bạn có muốn xóa không?");
+                builder.setTitle("Xóa thành viên");
+                builder.setIcon(R.drawable.ic_baseline_delete_forever_24_red);
+                builder.setMessage("Bạn có chắc chắn muốn xóa không ?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
@@ -87,6 +99,16 @@ public class TV_Adapter extends RecyclerView.Adapter<TV_Adapter.tvhoder> impleme
                         vienDao = new ThanhVienDao(context);
                         int kq = vienDao.DELETETV(thanhVien);
                         if (kq > 0) {
+                            // Sử dụng context chính xác
+                            MediaPlayer mp = MediaPlayer.create(context.getApplicationContext(), R.raw.bubbles_bursting);
+                            mp.start();
+                            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                @Override
+                                public void onCompletion(MediaPlayer mp) {
+                                    // Giải phóng MediaPlayer sau khi hoàn thành phát
+                                    mp.release();
+                                }
+                            });
                             list.clear();
                             list.addAll(vienDao.GETTV());
                             // load lại dữ liệu
@@ -114,7 +136,8 @@ public class TV_Adapter extends RecyclerView.Adapter<TV_Adapter.tvhoder> impleme
                 View view = inflater.inflate(R.layout.custom_update_tv, null);
                 AlertDialog dialog = new AlertDialog.Builder(view.getContext()).create();
                 dialog.setView(view);
-                dialog.setTitle("                Sửa Thành Viên ");
+                dialog.setIcon(R.drawable.ic_baseline_edit_24);
+                dialog.setTitle("Sửa thông tin thành Viên ");
                 EditText ed_edhotentv = view.findViewById(R.id.ed_hotentvedit);
                 EditText ed_namsinhtv = view.findViewById(R.id.ed_namstvedit);
                 ed_edhotentv.setText(thanhVien.getHoTenTV());
@@ -133,6 +156,16 @@ public class TV_Adapter extends RecyclerView.Adapter<TV_Adapter.tvhoder> impleme
                             thanhVien.setNamsinhTV(ed_namsinhtv.getText().toString());
                             long kq = vienDao.UPDATETV(thanhVien);
                             if (kq > 0) {
+                                // Sử dụng context chính xác
+                                MediaPlayer mp = MediaPlayer.create(context.getApplicationContext(), R.raw.new_notification);
+                                mp.start();
+                                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                    @Override
+                                    public void onCompletion(MediaPlayer mp) {
+                                        // Giải phóng MediaPlayer sau khi hoàn thành phát
+                                        mp.release();
+                                    }
+                                });
                                 list.clear();
                                 list.addAll(vienDao.GETTV());
                                 notifyDataSetChanged();
@@ -173,6 +206,7 @@ public class TV_Adapter extends RecyclerView.Adapter<TV_Adapter.tvhoder> impleme
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 String strSearch = constraint.toString();
+                ThanhVien noResult = new ThanhVien();
                 if (strSearch.isEmpty()) {
                     list = mlistOld;
                 } else {
@@ -181,7 +215,12 @@ public class TV_Adapter extends RecyclerView.Adapter<TV_Adapter.tvhoder> impleme
                         if (thanhVien.getHoTenTV().toLowerCase().contains(strSearch.toLowerCase())) {
                             listtv.add(thanhVien);
                         }
-                        ;
+
+                        // Nếu không có sách nào khớp, thêm đối tượng "Không tìm thấy kết quả"
+                        if (listtv.isEmpty()) {
+                            noResult.setHoTenTV("Không tìm thấy kết quả nào cho \"" + strSearch + "\"");
+                            listtv.add(noResult);
+                        }
                     }
                     list = listtv;
                 }

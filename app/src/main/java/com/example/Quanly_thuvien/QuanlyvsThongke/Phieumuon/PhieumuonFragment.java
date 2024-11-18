@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -75,6 +76,7 @@ public class PhieumuonFragment extends Fragment {
      * @return A new instance of fragment PhieumuonFragment.
      */
     // TODO: Rename and change types and number of parameters
+
     public static PhieumuonFragment newInstance(String param1, String param2) {
         PhieumuonFragment fragment = new PhieumuonFragment();
         Bundle args = new Bundle();
@@ -227,7 +229,16 @@ public class PhieumuonFragment extends Fragment {
                                 phieuMuon.setTrasach(Trasach);
                                 long kq = muonDao.ADDPM(phieuMuon);
                                 if (kq > 0) {
-
+                                    // Sử dụng context chính xác
+                                    MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.new_notification);
+                                    mp.start();
+                                    mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                        @Override
+                                        public void onCompletion(MediaPlayer mp) {
+                                            // Giải phóng MediaPlayer sau khi hoàn thành phát
+                                            mp.release();
+                                        }
+                                    });
                                     Toast.makeText(getContext(), "Thêm phiếu mượn thành công", Toast.LENGTH_SHORT).show();
                                     model.getLiveData();
                                     pm_adapter.notifyDataSetChanged();

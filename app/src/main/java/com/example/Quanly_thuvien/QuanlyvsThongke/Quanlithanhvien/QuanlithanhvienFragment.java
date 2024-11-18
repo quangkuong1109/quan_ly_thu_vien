@@ -1,10 +1,16 @@
 package com.example.Quanly_thuvien.QuanlyvsThongke.Quanlithanhvien;
 
 import android.app.AlertDialog;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -93,7 +99,17 @@ public class QuanlithanhvienFragment extends Fragment {
                             thanhVien.setNamsinhTV(ed_namsinh.getText().toString());
                             long kq = vienDao.ADDTV(thanhVien);
                             if (kq > 0) {
-                                Toast.makeText(getActivity(), "Đã Thêm Thành viên", Toast.LENGTH_SHORT).show();
+                                // Sử dụng context chính xác
+                                MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.new_notification);
+                                mp.start();
+                                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                    @Override
+                                    public void onCompletion(MediaPlayer mp) {
+                                        // Giải phóng MediaPlayer sau khi hoàn thành phát
+                                        mp.release();
+                                    }
+                                });
+                                Toast.makeText(getActivity(), "Thêm thành viên thành công", Toast.LENGTH_SHORT).show();
                                 ed_hoten.setText("");
                                 ed_namsinh.setText("");
                                 model.getLiveData();

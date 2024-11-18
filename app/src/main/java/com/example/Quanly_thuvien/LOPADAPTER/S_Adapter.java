@@ -3,6 +3,7 @@ package com.example.Quanly_thuvien.LOPADAPTER;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,22 @@ public class S_Adapter extends RecyclerView.Adapter<S_Adapter.SachHoder> impleme
         Sach sach = list.get(position);
         if (sach == null) {
             return;
+        }
+        if (sach.getTens().startsWith("Không tìm thấy kết quả")) {
+            holder.tv_ms.setText("");
+            holder.tv_mls.setText("");
+            holder.tv_tens.setText(sach.getTens());
+            holder.tv_tacgia.setText("");
+            holder.tv_gias.setText("");
+
+            //Ẩn các biểu tượng
+            holder.img_dels.setVisibility(View.GONE);
+            holder.img_edits.setVisibility(View.GONE);
+            holder.tv_tens.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);  // Ẩn biểu tượng quyển sách
         } else {
+            holder.img_dels.setVisibility(View.VISIBLE);
+            holder.img_edits.setVisibility(View.VISIBLE);
+
             String tenLoai;
             try {
                 LoaiSachDao loaiSachDao = new LoaiSachDao(context);
@@ -87,9 +103,9 @@ public class S_Adapter extends RecyclerView.Adapter<S_Adapter.SachHoder> impleme
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("Delete");
-                builder.setIcon(R.drawable.ic_dele);
-                builder.setMessage("Bạn có muốn xóa không?");
+                builder.setTitle("Xóa thông tin sách");
+                builder.setIcon(R.drawable.ic_baseline_delete_forever_24_red);
+                builder.setMessage("Bạn có chắc chắn muốn xóa không ?");
                 builder.setCancelable(true);
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
@@ -97,6 +113,16 @@ public class S_Adapter extends RecyclerView.Adapter<S_Adapter.SachHoder> impleme
                         dao = new SachDao(context);
                         long kq = dao.DELETES(sach);
                         if (kq > 0) {
+                            // Sử dụng context chính xác
+                            MediaPlayer mp = MediaPlayer.create(context.getApplicationContext(), R.raw.bubbles_bursting);
+                            mp.start();
+                            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                @Override
+                                public void onCompletion(MediaPlayer mp) {
+                                    // Giải phóng MediaPlayer sau khi hoàn thành phát
+                                    mp.release();
+                                }
+                            });
                             list.clear();
                             list.addAll(dao.GETS());
                             Toast.makeText(context.getApplicationContext(), "Xóa Thành Công", Toast.LENGTH_SHORT).show();
@@ -123,7 +149,8 @@ public class S_Adapter extends RecyclerView.Adapter<S_Adapter.SachHoder> impleme
                 View view = inflater.inflate(R.layout.custom_edit_sach, null);
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setView(view);
-                builder.setTitle("Sửa Sách");
+                builder.setIcon(R.drawable.ic_baseline_edit_24);
+                builder.setTitle("Sửa thông tin sách");
                 EditText ed_teneds = (EditText) view.findViewById(R.id.tensached);
                 Spinner spneds = (Spinner) view.findViewById(R.id.spin_lsached);
                 EditText ed_giaeds = (EditText) view.findViewById(R.id.giasached);
@@ -169,6 +196,16 @@ public class S_Adapter extends RecyclerView.Adapter<S_Adapter.SachHoder> impleme
                                 sach.setMals(ms);
                                 long kq = dao.UPDATES(sach);
                                 if (kq > 0) {
+                                    // Sử dụng context chính xác
+                                    MediaPlayer mp = MediaPlayer.create(context.getApplicationContext(), R.raw.new_notification);
+                                    mp.start();
+                                    mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                        @Override
+                                        public void onCompletion(MediaPlayer mp) {
+                                            // Giải phóng MediaPlayer sau khi hoàn thành phát
+                                            mp.release();
+                                        }
+                                    });
                                     list.clear();
                                     list.addAll(dao.GETS());
                                     Toast.makeText(view.getContext(), "Sửa Thành Công", Toast.LENGTH_SHORT).show();
@@ -211,6 +248,7 @@ public class S_Adapter extends RecyclerView.Adapter<S_Adapter.SachHoder> impleme
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 String strSearch = constraint.toString();
+                Sach noResult = new Sach();
                 if (strSearch.isEmpty()) {
                     list = mlistOld;
                 } else {
@@ -221,7 +259,11 @@ public class S_Adapter extends RecyclerView.Adapter<S_Adapter.SachHoder> impleme
                                 sach.getTens().toLowerCase().contains(strSearch.toLowerCase())) {
                             filteredList.add(sach);
                         }
-                        ;
+                        // Nếu không có sách nào khớp, thêm đối tượng "Không tìm thấy kết quả"
+                        if (filteredList.isEmpty()) {
+                            noResult.setTens("Không tìm thấy kết quả nào cho \"" + strSearch + "\"");
+                            filteredList.add(noResult);
+                        }
                     }
                     list = filteredList;
                 }

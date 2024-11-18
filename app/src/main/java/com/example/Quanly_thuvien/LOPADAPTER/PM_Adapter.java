@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,7 +96,7 @@ public class PM_Adapter extends RecyclerView.Adapter<PM_Adapter.PhieuMuonhoder> 
             // lấy họ tên từ id
 //            ThanhVienDao tv_dao = new ThanhVienDao(context);
 //            ThanhVien tv = tv_dao.getId(phieuMuon.getMaTVpm() + "");
-            holder.tv_matvpm.setText("Tên Thành Viên: " + hoTenTV + "");
+            holder.tv_matvpm.setText("Họ và tên: " + hoTenTV + "");
             // lấy tên sách
 //            SachDao sachDao = new SachDao(context);
 //            Sach sach = sachDao.getId(phieuMuon.getMaSpm() + "");
@@ -118,9 +119,9 @@ public class PM_Adapter extends RecyclerView.Adapter<PM_Adapter.PhieuMuonhoder> 
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("Delete");
-                builder.setIcon(R.drawable.ic_dele);
-                builder.setMessage("Bạn có muốn xóa không?");
+                builder.setTitle("Xóa phiếu mượn");
+                builder.setIcon(R.drawable.ic_baseline_delete_forever_24_red);
+                builder.setMessage("Bạn có chắc chắn muốn xóa không?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
@@ -128,6 +129,16 @@ public class PM_Adapter extends RecyclerView.Adapter<PM_Adapter.PhieuMuonhoder> 
                         phieuMuonDao = new PhieuMuonDao(context);
                         int kq = phieuMuonDao.DELETEPM(phieuMuon);
                         if (kq > 0) {
+                            // Sử dụng context chính xác
+                            MediaPlayer mp = MediaPlayer.create(context.getApplicationContext(), R.raw.bubbles_bursting);
+                            mp.start();
+                            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                @Override
+                                public void onCompletion(MediaPlayer mp) {
+                                    // Giải phóng MediaPlayer sau khi hoàn thành phát
+                                    mp.release();
+                                }
+                            });
                             list.clear();
                             list.addAll(phieuMuonDao.GETPM());
                             // load lại dữ liệu
@@ -155,6 +166,7 @@ public class PM_Adapter extends RecyclerView.Adapter<PM_Adapter.PhieuMuonhoder> 
                 View view = inflater.inflate(R.layout.custom_edit_phieumuon, null);
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setView(view);
+                builder.setIcon(R.drawable.ic_baseline_edit_24);
                 builder.setTitle("Sửa Phiếu Mượn");
                 EditText ed_ngaymuoned = (EditText) view.findViewById(R.id.ed_ngaymuoned);
                 EditText ed_tienthueed = (EditText) view.findViewById(R.id.ed_giamuoned);
@@ -269,6 +281,16 @@ public class PM_Adapter extends RecyclerView.Adapter<PM_Adapter.PhieuMuonhoder> 
                                 phieuMuon.setTrasach(Trasach);
                                 long kq = phieuMuonDao.UPDATEPM(phieuMuon);
                                 if (kq > 0) {
+                                    // Sử dụng context chính xác
+                                    MediaPlayer mp = MediaPlayer.create(context.getApplicationContext(), R.raw.new_notification);
+                                    mp.start();
+                                    mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                        @Override
+                                        public void onCompletion(MediaPlayer mp) {
+                                            // Giải phóng MediaPlayer sau khi hoàn thành phát
+                                            mp.release();
+                                        }
+                                    });
                                     list.clear();
                                     list.addAll(phieuMuonDao.GETPM());
                                     Toast.makeText(view.getContext(), "Sửa Thành Công", Toast.LENGTH_SHORT).show();

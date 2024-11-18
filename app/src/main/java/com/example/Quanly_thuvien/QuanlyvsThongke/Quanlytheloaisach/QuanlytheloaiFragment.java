@@ -2,6 +2,7 @@ package com.example.Quanly_thuvien.QuanlyvsThongke.Quanlytheloaisach;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,6 +77,16 @@ public class QuanlytheloaiFragment extends Fragment {
                         loaiSach.setNhacc(ed_nhcc.getText().toString());
                         long kq = lsdao.ADDLS(loaiSach);
                         if (kq > 0) {
+                            // Sử dụng context chính xác
+                            MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.new_notification);
+                            mp.start();
+                            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                @Override
+                                public void onCompletion(MediaPlayer mp) {
+                                    // Giải phóng MediaPlayer sau khi hoàn thành phát
+                                    mp.release();
+                                }
+                            });
                             ed_ls.setText("");
                             ed_nhcc.setText("");
                             Toast.makeText(getActivity(), "Thêm Loại Sách Thành Công", Toast.LENGTH_SHORT).show();

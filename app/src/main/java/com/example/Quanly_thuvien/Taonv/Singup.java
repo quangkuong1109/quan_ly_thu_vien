@@ -3,6 +3,7 @@ package com.example.Quanly_thuvien.Taonv;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,7 +72,17 @@ public class Singup extends Fragment {
                         if (checkrong() > 0) {
                             long kq = dao.ADDNV(nhanVien);
                             if (kq > 0) {
-                                Toast.makeText(getActivity(), "Tạo Tài khoản thành công", Toast.LENGTH_SHORT).show();
+                                // Sử dụng context chính xác
+                                MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.new_notification);
+                                mp.start();
+                                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                    @Override
+                                    public void onCompletion(MediaPlayer mp) {
+                                        // Giải phóng MediaPlayer sau khi hoàn thành phát
+                                        mp.release();
+                                    }
+                                });
+                                Toast.makeText(getActivity(), "Tạo tài khoản thành công", Toast.LENGTH_SHORT).show();
                                 edUser.setText("");
                                 edhoten.setText("");
                                 edPass.setText("");
