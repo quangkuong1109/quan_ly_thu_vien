@@ -248,7 +248,6 @@ public class S_Adapter extends RecyclerView.Adapter<S_Adapter.SachHoder> impleme
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 String strSearch = constraint.toString();
-                Sach noResult = new Sach();
                 if (strSearch.isEmpty()) {
                     list = mlistOld;
                 } else {
@@ -259,11 +258,12 @@ public class S_Adapter extends RecyclerView.Adapter<S_Adapter.SachHoder> impleme
                                 sach.getTens().toLowerCase().contains(strSearch.toLowerCase())) {
                             filteredList.add(sach);
                         }
-                        // Nếu không có sách nào khớp, thêm đối tượng "Không tìm thấy kết quả"
-                        if (filteredList.isEmpty()) {
-                            noResult.setTens("Không tìm thấy kết quả nào cho \"" + strSearch + "\"");
-                            filteredList.add(noResult);
-                        }
+                    }
+                    // Kiểm tra sau khi duyệt toàn bộ danh sách
+                    if (filteredList.isEmpty()) {
+                        Sach noResult = new Sach();
+                        noResult.setTens("Không tìm thấy kết quả nào cho \"" + strSearch + "\"");
+                        filteredList.add(noResult);
                     }
                     list = filteredList;
                 }
@@ -278,7 +278,6 @@ public class S_Adapter extends RecyclerView.Adapter<S_Adapter.SachHoder> impleme
                 notifyDataSetChanged();
             }
         };
-
     }
 
     public class SachHoder extends RecyclerView.ViewHolder {
